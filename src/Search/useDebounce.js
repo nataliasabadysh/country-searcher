@@ -10,24 +10,30 @@ export const useDebounce = (value, delay) => {
      */
     const [ debouncedValue, setDebouncedValue ] = useState(value);
 
-    useEffect(() => {
-        /**
-         * Обновлять debounced-значение спустя определённое время
-         */
-        const timer = setTimeout(() => {
-            setDebouncedValue(value);
-        }, delay);
-
-        /**
-         * По правилам работы с хуками — обязательно делаем очистку таймера в useEffect.
-         */
-        return () => {
+    useEffect(
+        () => {
             /**
-             * При каждом выполнении useEffect может возвращать функцию-очистку.
+             * Обновлять debounced-значение спустя определённое время
              */
-            clearTimeout(timer);
-        };
-    }, [ value ]);
+            const timer = setTimeout(() => {
+                setDebouncedValue(value);
+            }, delay);
+
+            /**
+             * По правилам работы с хуками — обязательно делаем очистку таймера в useEffect.
+             */
+            return () => {
+                /**
+                 * При каждом выполнении useEffect может возвращать функцию-очистку.
+                 */
+                clearTimeout(timer);
+            };
+        },
+        /**
+         * Выполнять тело этого эффекта только если value изменилось
+         */
+        [ value ],
+    );
 
     return debouncedValue;
 };
