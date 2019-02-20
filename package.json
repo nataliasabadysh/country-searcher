@@ -1,7 +1,6 @@
 {
     "name": "react-workshop",
     "version": "2.0.0",
-    "author": "Dima Vakatsiienko <dvakatsiienko@lectrum.io>",
     "private": true,
     "scripts": {
         "start": "react-app-rewired start",
